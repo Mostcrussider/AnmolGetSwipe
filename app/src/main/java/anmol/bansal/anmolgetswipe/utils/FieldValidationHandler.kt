@@ -3,7 +3,6 @@ package anmol.bansal.anmolgetswipe.utils
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 
@@ -12,7 +11,8 @@ class FieldValidationHandler(
     private val sellingPriceEditText: EditText,
     private val taxRateEditText: EditText,
     private val productTypeList: AutoCompleteTextView,
-    private val addButton: View
+    private val addButton: View,
+    private val productTypeDataList: List<String>
 ) {
 
     private val textWatcher = object : TextWatcher {
@@ -25,21 +25,11 @@ class FieldValidationHandler(
         }
     }
 
-    private val spinnerItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            updateAddButtonState()
-        }
-
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-            updateAddButtonState()
-        }
-    }
-
     init {
         productNameEditText.addTextChangedListener(textWatcher)
         sellingPriceEditText.addTextChangedListener(textWatcher)
         taxRateEditText.addTextChangedListener(textWatcher)
-        productTypeList.onItemSelectedListener = spinnerItemSelectedListener
+        productTypeList.addTextChangedListener(textWatcher)
         updateAddButtonState()
     }
 
@@ -48,8 +38,9 @@ class FieldValidationHandler(
         val sellingPrice = sellingPriceEditText.text.toString()
         val taxRate = taxRateEditText.text.toString()
         val productType = productTypeList.text.toString()
+        val productTypeIsValid = productTypeDataList.contains(productType)
 
         addButton.isEnabled =
-            productName.isNotBlank() && sellingPrice.isNotBlank() && taxRate.isNotBlank() && productType.isNotBlank()
+            productName.isNotBlank() && sellingPrice.isNotBlank() && taxRate.isNotBlank() && productType.isNotBlank() && productTypeIsValid
     }
 }

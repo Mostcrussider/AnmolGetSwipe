@@ -36,7 +36,7 @@ class AddProductFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddProductBinding.inflate(inflater, container, false)
         setupListeners()
         observeViewModel()
@@ -57,10 +57,19 @@ class AddProductFragment : Fragment() {
                     }
                     is AddProductViewModel.ResponseEvent.ProductTypeLoaded -> {
                         binding.progressBar.isVisible = false
+
+                        fieldValidationHandler = FieldValidationHandler(
+                            binding.etProductName,
+                            binding.etSellingPrice,
+                            binding.etTaxRate,
+                            binding.productTypeList,
+                            binding.btnAddProduct,
+                            event.productTypeList
+                        )
                         val adapter = ArrayAdapter(
                             requireContext(),
                             android.R.layout.simple_spinner_item,
-                            event.currencyData
+                            event.productTypeList
                         )
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         binding.productTypeList.setAdapter(adapter)
@@ -89,14 +98,6 @@ class AddProductFragment : Fragment() {
     }
 
     private fun setupListeners() {
-
-        fieldValidationHandler = FieldValidationHandler(
-            binding.etProductName,
-            binding.etSellingPrice,
-            binding.etTaxRate,
-            binding.productTypeList,
-            binding.btnAddProduct
-        )
 
         binding.btnAddProduct.setOnClickListener {
             var imageFile: File? = null

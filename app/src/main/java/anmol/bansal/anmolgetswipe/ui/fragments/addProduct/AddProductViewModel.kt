@@ -19,7 +19,7 @@ class AddProductViewModel(
 
     sealed class ResponseEvent {
         class Failure(val errorText: String) : ResponseEvent()
-        class ProductTypeLoaded(val currencyData: List<String>) : ResponseEvent()
+        class ProductTypeLoaded(val productTypeList: List<String>) : ResponseEvent()
         class NewProductAdded(val addNewProductResponse: AddNewProductModel) : ResponseEvent()
         object Loading : ResponseEvent()
         object Empty : ResponseEvent()
@@ -35,9 +35,9 @@ class AddProductViewModel(
                 is Resource.Error -> _conversion.value =
                     ResponseEvent.Failure(ratesResponse.message!!)
                 is Resource.Success -> {
-                    val currencyData = ratesResponse.data
-                    if (currencyData != null) {
-                        _conversion.value = ResponseEvent.ProductTypeLoaded(currencyData)
+                    val productTypeList = ratesResponse.data
+                    if (productTypeList != null) {
+                        _conversion.value = ResponseEvent.ProductTypeLoaded(productTypeList)
                     } else {
                         _conversion.value = ResponseEvent.Failure(Constants.DATA_QUERY_FAILURE)
                     }
