@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">AnmolGetSwipe</string>
+
+    <string name="product_type">Product Type*</string>
+    <string name="product_name">Product Name*</string>
+    <string name="selling_price">Selling Price*</string>
+    <string name="tax_rate">Tax Rate*</string>
+    <string name="add_product">Add Product</string>
+    <string name="add_new_product">Add New Product</string>
+    <string name="image_select_info">Select images in JPEG or PNG format.</string>
+    <string name="select_image">Select Image</string>
+    <string name="exit_app">"Press back again to exit"</string>
+    <string name="required_fields">"* Required fields."</string>
+    <string name="product_search">"Enter Product Name"</string>
+
+    <string name="product_type_tv">Product Type: </string>
+    <string name="product_name_tv">Product Name: </string>
+    <string name="selling_price_tv">Selling Price: </string>
+    <string name="tax_rate_tv">Tax Rate: </string>
+
+    <string name="retry">Retry</string>
+    <string name="error">Something went wrong!!!</string>
+</resources>
